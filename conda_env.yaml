@@ -1,0 +1,14 @@
+name: Fingerhut2024
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pandas
+  - matplotlib 
+  - numpy
+  - pip
+  - pip:
+       - matplotlib-inline
+       - pysam
+
