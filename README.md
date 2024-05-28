@@ -11,7 +11,7 @@ You need to have Python> 3.8 with Numpy and Pysam installed.
 
 For Convenience, we provide a conda environment .yaml file that comes with all the required dependencies.
 
-In the lab, we developed a new version backed by rust code to make a coverage plot. It is lightning fast; a plot takes less than 30 seconds and does not require pre-splitting the bam files. It is still in beta, but if you are interested in trying it, let us know.
+In the lab, we developed a new version of the Python code backed by Rust code to make a coverage plot. It is lightning fast; a plot takes less than 30 seconds and does not require pre-splitting the bam files. It is still in beta, but if you are interested in trying it, let us know.
 
 
 
