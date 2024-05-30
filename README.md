@@ -12,5 +12,5 @@ For Convenience, we provide a conda environment .yaml file that comes with all t
 In the lab, we developed a new version of the Python code backed by Rust code to make a coverage plot. It is lightning fast; a plot takes less than 30 seconds and does not require pre-splitting the bam files. It is still in beta, but if you are interested in trying it, let us know.
 
 
-
+The gene biotype file was acquired from flybase.
 
