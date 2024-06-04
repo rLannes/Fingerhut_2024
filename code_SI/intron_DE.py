@@ -15,12 +15,15 @@ parse = argparse.ArgumentParser()
 parse.add_argument("--Normalized")
 args = parse.parse_args()
 
+
 def statistic(x, y):
     return np.mean(x) - np.mean(y)
 
 with open("dmel-all-r6.48.dico.pkl", "rb") as f_o:
     dico_gtf = pickle.load(f_o)
     
+
+
 intron_size_file = "gene_introns_exons_span.tsv"
 dico_intron = {}
 with open(intron_size_file) as f_in:
@@ -88,6 +91,8 @@ def get_intron(transcript, strand):
 dico = {}
 intron = []
 
+
+
 for gene_id, dico_gene in dico_gtf.items():
     if dico_gene["biotype"] not in  ["protein_coding_gene"]:
         continue
@@ -97,8 +102,8 @@ for gene_id, dico_gene in dico_gtf.items():
     intron.extend(get_intron_all(dico_gene["transcript"], strand))
 
     dico[gene_id] = l # largest intron all transcript considered for a genes
-    
-    
+
+
     
 ncount = pd.read_csv(args.Normalized)#"Normalized.count.csv")
 fb_expr = ncount[ncount["Control_rep1.norm 	Control_rep2.norm 	Control_rep3.norm".split()].sum(axis=1)  > 30]["FlyBaseID"].values
@@ -126,6 +131,9 @@ Gene_gap_tokeep = ["FBgn0267431", "FBgn0267430", "FBgn0263112"]
 #U2af38
 genotype = "U2af38"
 
+
+# f2 = open("S2.B.txt", "w")
+
 val_avg_gene = df[(df["FlyBase ID"].isin(genes_nogap_avg)) & (df["FlyBase ID"].isin(fb_expr))]["log2(U2af38/Control)"]
 val_long_gene = df[(df["FlyBase ID"].isin(long_intron_gene_name)) & (df["FlyBase ID"].isin(fb_expr))]["log2(U2af38/Control)"]
 large_Y = df[df["Gene"].isin(liste_genes)]["log2(U2af38/Control)"]
@@ -139,9 +147,15 @@ plt.scatter([3 + rd.gauss(0, 0.02) for x in range(len(large_Y))], large_Y, color
 plt.xticks([0,1,2,3], labels=["small_intron_gene","large non gap gene", "gene with gap", "large Y linked gene"], rotation=45, ha="right")
 plt.gca().axhline(0, color="black")
 plt.title("U2af38")
-plt.savefig("final_figure_4_2_A_U2af38.pdf")
-plt.savefig("final_figure_4_2_A_U2af38.png")
+plt.savefig("final_figure_4_2_B_U2af38.pdf")
+plt.savefig("final_figure_4_2_B_U2af38.png")
 plt.show()
+
+# f2.write("{}\t{}\t{}\n".format(genotype, "<100pb", "\t".join(list(map(str, val_avg_gene)))))
+# f2.write("{}\t{}\t{}\n".format(genotype, "50-110kb", "\t".join(list(map(str, val_long_gene)))))
+# f2.write("{}\t{}\t{}\n".format(genotype, "autosomal gigantic", "\t".join(list(map(str, pzl)))))
+# f2.write("{}\t{}\t{}\n".format(genotype, "Y-linked", "\t".join(list(map(str, large_Y)))))
+
 
 res = permutation_test((large_Y, val_avg_gene), statistic, 
                        n_resamples=1000)#, alternative='less')
@@ -177,13 +191,21 @@ val_long_gene = df[(df["FlyBase ID"].isin(long_intron_gene_name)) & (df["FlyBase
 large_Y = df[df["Gene"].isin(liste_genes)]["log2(SRPK/Control)"]
 pzl = df[df["FlyBase ID"].isin(Gene_gap_tokeep)]["log2(SRPK/Control)"]
 
-
+# f2.write("{}\t{}\t{}\n".format(genotype, "<100pb", "\t".join(list(map(str, val_avg_gene)))))
+# f2.write("{}\t{}\t{}\n".format(genotype, "50-110kb", "\t".join(list(map(str, val_long_gene)))))
+# f2.write("{}\t{}\t{}\n".format(genotype, "autosomal gigantic", "\t".join(list(map(str, pzl)))))
+# f2.write("{}\t{}\t{}\n".format(genotype, "Y-linked", "\t".join(list(map(str, large_Y)))))
 
 plt.scatter([0 + rd.gauss(0, 0.02) for x in range(len(val_avg_gene))], val_avg_gene, color="black", s=1)
 plt.scatter([1 + rd.gauss(0, 0.02) for x in range(len(val_long_gene))], val_long_gene, color="black", s=1)
 plt.scatter([2 + rd.gauss(0, 0.02) for x in range(len(pzl))], pzl, color="black", s=1)
 plt.scatter([3 + rd.gauss(0, 0.02) for x in range(len(large_Y))], large_Y, color="black", s=1)
 plt.xticks([0,1,2, 3], labels=["small_intron_gene","large non gap gene", "gene with gap", "large Y linked gene"], rotation=45, ha="right")
+
+
+
+# f2.close()
+
 
 res = permutation_test((large_Y, val_avg_gene), statistic,
                        n_resamples=1000)#, alternative='less')
@@ -211,14 +233,11 @@ print("MannU SRPK, small vs long, res: ", U1, p)
 
 
 plt.gca().axhline(0, color="black")
-plt.savefig("final_figure_4_2_A_SRPK.pdf")
-plt.savefig("final_figure_4_2_A_SRPK.png")
+plt.savefig("final_figure_4_2_B_SRPK.pdf")
+plt.savefig("final_figure_4_2_B_SRPK.png")
 
 plt.title("SRPK")
 plt.show()
 
-plt.show()
 
 
-
-    

@@ -136,7 +136,7 @@ Gene_gap_tokeep = ["FBgn0267431", "FBgn0267430", "FBgn0263112"]
 genotype = "U2af38"
 
 
-f2 = open("S2.BB.txt", "w")
+# f2 = open("S2.BB.txt", "w")
 
 filter_ = set(fb_expr).intersection(u2af38_as)
 val_avg_gene = df[(df["FlyBase ID"].isin(genes_nogap_avg)) & (df["FlyBase ID"].isin(filter_))]["log2(U2af38/Control)"]
@@ -156,9 +156,9 @@ plt.savefig("final_figure_4_2_B_U2af38.pdf")
 plt.savefig("final_figure_4_2_B_U2af38.png")
 plt.show()
 
-f2.write("{}\t{}\t{}\n".format(genotype, "<100pb", "\t".join(list(map(str, val_avg_gene)))))
-f2.write("{}\t{}\t{}\n".format(genotype, "50-110kb", "\t".join(list(map(str, val_long_gene)))))
-# f2.write("{}\t{}\t{}\n".format(genotype, "autosomal gigantic", "\t".join(list(map(str, pzl)))))
+# f2.write("{}\t{}\t{}\n".format(genotype, "<100pb", "\t".join(list(map(str, val_avg_gene)))))
+# f2.write("{}\t{}\t{}\n".format(genotype, "50-110kb", "\t".join(list(map(str, val_long_gene)))))
+# # f2.write("{}\t{}\t{}\n".format(genotype, "autosomal gigantic", "\t".join(list(map(str, pzl)))))
 # f2.write("{}\t{}\t{}\n".format(genotype, "Y-linked", "\t".join(list(map(str, large_Y)))))
 
 
@@ -198,8 +198,8 @@ val_long_gene = df[(df["FlyBase ID"].isin(long_intron_gene_name)) & (df["FlyBase
 # large_Y = df[df["Gene"].isin(liste_genes)]["log2(SRPK/Control)"]
 # pzl = df[df["FlyBase ID"].isin(Gene_gap_tokeep)]["log2(SRPK/Control)"]
 
-f2.write("{}\t{}\t{}\n".format(genotype, "<100pb", "\t".join(list(map(str, val_avg_gene)))))
-f2.write("{}\t{}\t{}\n".format(genotype, "50-110kb", "\t".join(list(map(str, val_long_gene)))))
+# f2.write("{}\t{}\t{}\n".format(genotype, "<100pb", "\t".join(list(map(str, val_avg_gene)))))
+# f2.write("{}\t{}\t{}\n".format(genotype, "50-110kb", "\t".join(list(map(str, val_long_gene)))))
 # f2.write("{}\t{}\t{}\n".format(genotype, "autosomal gigantic", "\t".join(list(map(str, pzl)))))
 # f2.write("{}\t{}\t{}\n".format(genotype, "Y-linked", "\t".join(list(map(str, large_Y)))))
 
@@ -211,7 +211,7 @@ plt.xticks([0,1], labels=["small_intron_gene","large non gap gene"], rotation=45
 
 
 
-f2.close()
+# f2.close()
 
 
 # res = permutation_test((large_Y, val_avg_gene), statistic,
